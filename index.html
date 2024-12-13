@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Logger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .time-display {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .instruction {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            width: 200px;
+            text-align: center;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            width: 150px;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #c0c0c0;
+        }
+        button:nth-child(1) {
+            background-color: #90ee90;
+        }
+        button:nth-child(2) {
+            background-color: #d3d3d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="time-display" id="current-time">00:00 AM</div>
+    <div class="instruction">กรอกรหัสพนักงาน</div>
+    <input type="text" id="employee-id" placeholder="รหัสพนักงาน">
+    <div class="buttons">
+        <button onclick="logTime()">ลงเวลา</button>
+        <button onclick="goBack()">ย้อนกลับ</button>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedTime = `${hours % 12 || 12}:${minutes} ${ampm}`;
+            document.getElementById('current-time').textContent = formattedTime;
+        }
+
+        function logTime() {
+            const employeeId = document.getElementById('employee-id').value;
+            if (employeeId) {
+                alert(`รหัสพนักงาน: ${employeeId}\nเวลาลง: ${document.getElementById('current-time').textContent}`);
+            } else {
+                alert('กรุณากรอกรหัสพนักงาน');
+            }
+        }
+
+        function goBack() {
+            alert('ย้อนกลับไปหน้าแรก');
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
